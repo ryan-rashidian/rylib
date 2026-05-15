@@ -90,7 +90,7 @@ void *arena_memcpy(void *restrict dst, const void *restrict src, size_t n)
     const uint8_t *s = (const uint8_t *)src;
 
     for (size_t i = 0; i < n; i++) {
-        d[i] = s[i];
+        *d++ = *s++;
     }
     return dst;
 }
