@@ -1,6 +1,6 @@
 # rylib
 
-My collection of C utilities organized into single-file libraries. These libraries are meant to be general purpose and light weight, serving as convenient drop in abstractions.
+My collection of C utilities organized into single-file libraries. These libraries are meant to be simple drop in abstractions. They can be added, modified for use in your own projects, or just referenced as learning material.
 
 Designed for C99 and to depend only on the C standard library.
 
@@ -12,10 +12,11 @@ Designed for C99 and to depend only on the C standard library.
 | **arr.c/h** | dynamic array |
 | **assert.h** | assert macro |
 | **log.h** | log macro |
+| **pool.c/h** | pool memory allocator |
 
 ## License
 
 MIT-0 [LICENSE](LICENSE)
 
-The license applies to this repository as a whole, and to each single-file library within it. You are free to use any file without needing attribution or having to attach a copy of the license.
+The license applies to this repository as a whole, and to each single-file library within it. You are free to use any file without needing attribution or needing to attach a copy of the license.
 
