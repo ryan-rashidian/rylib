@@ -1,4 +1,6 @@
-/* assert - Assert macro */
+/* 
+ * assert - Assert macro 
+ */
 
 #ifndef ASSERT_H
 #define ASSERT_H

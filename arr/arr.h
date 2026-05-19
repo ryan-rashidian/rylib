@@ -1,7 +1,9 @@
-/* arr.c/h - Dynamic array
+/* 
+ * arr.c/h - Dynamic array
  *
  * Arr struct is created with a starting `capacity`. When the array is full,
- * it will automatically resize by doubling its current capacity.
+ * it will automatically resize by doubling its current capacity. The array's
+ * type is implied by the given `elem_size`.
  */
 
 #ifndef ARR_H

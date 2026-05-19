@@ -1,7 +1,10 @@
-/* arena - Arena memory allocator
+/* 
+ * arena - Arena memory allocator
  *
  * Wraps malloc/realloc/free from stdlib.h into an arena allocator.
  * Uses a byte offset to track the position of allocated/free memory.
+ * All memory is allocated and freed at once, and an arena is reset by
+ * simply zeroing the offset.
  */
 
 #include <stdarg.h>
