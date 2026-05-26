@@ -13,6 +13,7 @@ Designed for C99 and to depend only on the C standard library.
 | **assert.h** | assert macro |
 | **log.h** | log macro |
 | **pool.c/h** | pool memory allocator |
+| **vec.c/h** | 2d vector interface |
 | **vstring.c/h** | string viewer |
 
 ## License
