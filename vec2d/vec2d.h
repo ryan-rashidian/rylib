@@ -1,5 +1,5 @@
 /* 
- * vec - Simple Vector 2D library
+ * vec2d - Simple Vector 2D library
  *
  * This library was written as an exercise and review of vector math. The
  * interface is inspired from using the Raylib raymath.h library.

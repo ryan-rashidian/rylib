@@ -1,5 +1,5 @@
 /* 
- * vec - Simple Vector 2D library
+ * vec2d - Simple Vector 2D library
  *
  * This library was written as an exercise and review of vector math. The
  * interface is inspired from using the Raylib raymath.h library.
@@ -7,7 +7,7 @@
 
 #include <math.h>
 
-#include "vec.h"
+#include "vec2d.h"
 
 Vec2 vec2_subtract(Vec2 v1, Vec2 v2)
 {
