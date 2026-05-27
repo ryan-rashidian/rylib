@@ -122,7 +122,7 @@ char *arena_strdup(Arena *a, const char *src)
 char *arena_sprintf(Arena *a, const char *format, ...)
 {
     va_list args;
-    size_t len = 0;
+    int len = 0;
     char *buf = NULL;
 
     va_start(args, format);
