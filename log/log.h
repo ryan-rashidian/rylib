@@ -18,9 +18,9 @@ void logger(int level, const char *message, ...);
 
 #endif
 
-#ifdef SRZ_LOG_IMPLEMENTATION
-#ifndef SRZ_LOG_IMPL_GUARD
-#define SRZ_LOG_IMPL_GUARD
+#ifdef LOG_IMPLEMENTATION
+#ifndef LOG_IMPL_GUARD
+#define LOG_IMPL_GUARD
 
 #include <stdio.h>
 #include <stdarg.h>
