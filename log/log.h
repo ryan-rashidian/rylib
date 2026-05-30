@@ -6,6 +6,7 @@
 #define LOG_H
 
 #define LOG(l , ...) logger((l), __VA_ARGS__)
+#define LOG_SET_LEVEL(l) logger_set_level((l))
 
 enum {
     LOG_DEBUG,
@@ -15,6 +16,7 @@ enum {
 };
 
 void logger(int level, const char *message, ...);
+void logger_set_level(int level);
 
 #endif
 
@@ -53,6 +55,11 @@ void logger(int level, const char *message, ...)
     va_start(va, message);
     vfprintf(stderr, buffer, va);
     va_end(va);
+}
+
+void logger_set_level(int level)
+{
+    log_level = level;
 }
 
 #endif
