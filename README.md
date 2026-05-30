@@ -11,7 +11,7 @@ Designed for C99 and to depend only on the C standard library.
 | **arena.c/h** | arena memory allocator |
 | **arr.c/h** | dynamic array |
 | **assert.h** | assert macro |
-| **log.h** | log macro |
+| **log.h** | logging utility |
 | **pool.c/h** | pool memory allocator |
 | **vec2d.c/h** | 2d vector interface |
 | **vstring.c/h** | string viewer |
