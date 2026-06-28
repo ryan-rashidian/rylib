@@ -2,8 +2,6 @@
 
 My collection of C utilities organized into single-file libraries. These libraries are meant to be simple drop in abstractions. They can be added, modified for use in your own projects, or just referenced as learning material.
 
-Designed for C99 and to depend only on the C standard library.
-
 ## Single-File Libraries
 
 | Library | Description |
@@ -13,6 +11,7 @@ Designed for C99 and to depend only on the C standard library.
 | **assert.h** | assert macro |
 | **log.h** | logging utility |
 | **pool.c/h** | pool memory allocator |
+| **timepx.h** | POSIX time wrapper |
 | **vec2d.c/h** | 2d vector interface |
 | **vstring.c/h** | string viewer |
 
