@@ -11,7 +11,7 @@
 
 Vec2 vec2_subtract(Vec2 v1, Vec2 v2)
 {
-    Vec2 result = { v2.x - v1.x, v2.y - v1.y };
+    Vec2 result = { v1.x - v2.x, v1.y - v2.y };
 
     return result;
 }
