@@ -5,8 +5,14 @@
 #ifndef LOG_H
 #define LOG_H
 
+#if LOG_ENABLED
 #define LOG(l , ...) logger((l), __VA_ARGS__)
 #define LOG_SET_LEVEL(l) logger_set_level((l))
+#else
+// Empty macros if disabled
+#define LOG(l , ...)
+#define LOG_SET_LEVEL(l)
+#endif
 
 enum {
     LOG_DEBUG,
