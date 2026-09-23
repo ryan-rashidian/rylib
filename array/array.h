@@ -1,5 +1,5 @@
 /*
- * Dynamic Array - single header library
+ * array - Dynamic Array
  */
 
 #ifndef ARRAY_H
@@ -8,103 +8,115 @@
 #include <stdbool.h>
 #include <stddef.h>
 
-#define ARRAY_PUSH(arr, val) (array_push((arr), &(val)))
-#define ARRAY_POP(arr, type) (*(type *)array_pop(arr))
-#define ARRAY_GET(arr, type, idx) (*(type *)array_get(arr, idx))
+#ifndef ARRAY_VALUE_TYPE
+#define ARRAY_VALUE_TYPE double
+#endif
 
-typedef struct Array {
-    void *buffer;
-    size_t elem_size;
-    size_t size;
-    size_t cap;
-} Array;
+typedef ARRAY_VALUE_TYPE AValue;
 
-Array *array_create(size_t elem_size);
-void   array_free(Array *array);
-bool   array_push(Array *array, void *value);
-void  *array_pop(Array *array);
-void  *array_get(Array *array, size_t idx);
+typedef struct Array Array;
+
+Array *array_init(void);
+void array_free(Array *arr);
+
+bool array_push(Array *arr, AValue value);
+bool array_set(Array *arr, size_t index, AValue value);
+bool array_get(Array *arr, size_t index, AValue *value);
+
+AValue *array_iter_start(Array *arr);
+AValue *array_iter_end(Array *arr);
+
+size_t array_count(Array *arr);
 
 #ifdef ARRAY_IMPLEMENTATION
-#ifndef IMPLEMENTATION_GAURD
-#define IMPLEMENTATION_GAURD
+#ifndef ARRAY_IMPL_GAURD
+#define ARRAY_IMPL_GAURD
 
-#include <stdint.h>
 #include <stdlib.h>
 
-#define INITIAL_CAPACITY 16
+#define ARRAY_GROW_CAPACITY(capacity) ((capacity) < 8 ? 8 : (capacity) * 2)
 
-Array *array_create(size_t elem_size)
+struct Array {
+    size_t count;
+    size_t capacity;
+    AValue *buffer;
+};
+
+Array *array_init(void)
 {
-    Array *array = (Array *)malloc(sizeof(Array));
-    if (array == NULL) return NULL;
+    Array *arr = (Array *)malloc(sizeof(Array));
+    if (arr == NULL) return NULL;
 
-    array->buffer = malloc(elem_size * INITIAL_CAPACITY);
-    if (array->buffer == NULL) {
-        free(array);
-        return NULL;
-    }
+    arr->count = 0;
+    arr->capacity = 0;
+    arr->buffer = NULL;
 
-    array->size = 0;
-    array->elem_size = elem_size;
-    array->cap = INITIAL_CAPACITY;
-
-    return array;
+    return arr;
 }
 
-void array_free(Array *array)
+void array_free(Array *arr)
 {
-    if (array == NULL) return;
+    if (arr == NULL) return;
 
-    if (array->buffer != NULL) free(array->buffer);
-    free(array);
+    if (arr->buffer != NULL) free(arr->buffer);
+    free(arr);
 }
 
-static bool resize_array(Array *array)
+static bool grow_array(Array *arr, size_t capacity)
 {
-    void *temp = realloc(array->buffer, array->cap * 2);
-    if (temp == NULL) return false;
+    size_t new_size = sizeof(AValue) * capacity;
+    AValue *new_buffer = (AValue *)realloc(arr->buffer, new_size);
+    if (new_buffer == NULL) return false;
 
-    array->buffer = temp;
-    array->cap *= 2;
+    arr->buffer = new_buffer;
+    arr->capacity = capacity;
 
     return true;
 }
 
-bool array_push(Array *array, void *value)
+bool array_push(Array *arr, AValue value)
 {
-    if (array->size * array->elem_size >= array->cap) {
-        if (!resize_array(array)) return false;
+    if (arr->capacity < arr->count + 1) {
+        size_t new_capacity = ARRAY_GROW_CAPACITY(arr->capacity);
+        if (!grow_array(arr, new_capacity)) return false;
     }
 
-    uint8_t *buffer = (uint8_t *)array->buffer;
-    size_t offset = array->size * array->elem_size;
-    buffer += offset;
-
-    for (size_t i = 0; i < array->elem_size; i++) {
-        *buffer++ = ((uint8_t *)value)[i];
-    }
-
-    array->size++;
+    arr->buffer[arr->count++] = value;
 
     return true;
 }
 
-void *array_pop(Array *array)
+bool array_set(Array *arr, size_t index, AValue value)
 {
-    array->size--;
-    uint8_t *buffer = (uint8_t *)array->buffer;
-    size_t offset = array->size * array->elem_size;
+    if (arr->count == 0 || arr->count - 1 < index) return false;
 
-    return buffer + offset;
+    arr->buffer[index] = value;
+
+    return true;
 }
 
-void *array_get(Array *array, size_t idx)
+bool array_get(Array *arr, size_t index, AValue *value)
 {
-    uint8_t *buffer = (uint8_t *)array->buffer;
-    size_t offset = idx * array->elem_size;
+    if (arr->count == 0 || arr->count - 1 < index) return false;
 
-    return buffer + offset;
+    *value = arr->buffer[index];
+
+    return true;
+}
+
+AValue *array_iter_start(Array *arr)
+{
+    return arr->buffer;
+}
+
+AValue *array_iter_end(Array *arr)
+{
+    return arr->buffer + arr->count;
+}
+
+size_t array_count(Array *arr)
+{
+    return arr->count;
 }
 
 #endif
