@@ -21,7 +21,6 @@ void queue_free(Queue *q);
 bool queue_push(Queue *q, QValue value);
 bool queue_pop(Queue *q, QValue *value);
 
-#define QUEUE_IMPLEMENTATION
 #ifdef QUEUE_IMPLEMENTATION
 #ifndef QUEUE_IMPL_GAURD
 #define QUEUE_IMPL_GAURD
