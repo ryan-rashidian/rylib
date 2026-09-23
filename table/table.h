@@ -21,29 +21,9 @@
 
 typedef TABLE_VALUE_TYPE TValue;
 
-typedef struct Key {
-    size_t next_id;
-    size_t len;
-    uint32_t hash;
-    char *chars;
-} Key;
+typedef struct Table Table;
 
-typedef struct {
-    size_t key_id;
-    TValue value;
-} Entry;
-
-typedef struct {
-    size_t entry_count;
-    size_t entry_active_count;
-    size_t key_count;
-    size_t capacity;
-    size_t free_key_id;
-    Entry *entries;
-    Key *keys;
-} Table;
-
-void table_init(Table *table);
+Table *table_init(void);
 void table_free(Table *table);
 
 bool table_insert(Table *table, const char *key, TValue value);
@@ -68,6 +48,28 @@ size_t table_count(Table *table);
 #define ENTRY_EMPTY     ((size_t)-1)
 #define ENTRY_TOMBSTONE ((size_t)-2)
 
+typedef struct {
+    size_t next_id;
+    size_t len;
+    uint32_t hash;
+    char *chars;
+} Key;
+
+typedef struct {
+    size_t key_id;
+    TValue value;
+} Entry;
+
+struct Table {
+    size_t entry_count;
+    size_t entry_active_count;
+    size_t key_count;
+    size_t capacity;
+    size_t free_key_id;
+    Entry *entries;
+    Key *keys;
+};
+
 // Using the FNV-1a hash function algorithm.
 static uint32_t hash_string(const char *key, size_t len)
 {
@@ -81,8 +83,11 @@ static uint32_t hash_string(const char *key, size_t len)
     return hash;
 }
 
-void table_init(Table *table)
+Table *table_init(void)
 {
+    Table *table = (Table *)malloc(sizeof(Table));
+    if (table == NULL) return NULL;
+
     table->entry_count = 0;
     table->entry_active_count = 0;
     table->key_count = 0;
@@ -90,10 +95,14 @@ void table_init(Table *table)
     table->free_key_id = ENTRY_EMPTY;
     table->entries = NULL;
     table->keys = NULL;
+
+    return table;
 }
 
 void table_free(Table *table)
 {
+    if (table == NULL) return;
+
     if (table->keys != NULL) {
         for (size_t i = 0; i < table->key_count; i++) {
             char *chars = table->keys[i].chars;
@@ -105,7 +114,7 @@ void table_free(Table *table)
     }
 
     if (table->entries != NULL) free(table->entries);
-    table_init(table);
+    free(table);
 }
 
 static bool match_keys(Key *key1, Key *key2)
