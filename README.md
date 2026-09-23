@@ -1,19 +1,23 @@
 # rylib
 
-My collection of C utilities organized into single-file libraries. These libraries are meant to be simple drop in abstractions. They can be added, modified for use in your own projects, or just referenced as learning material.
+My custom collection of C utilities and single-file libraries. These libraries/modules are designed to be simple, general purpose drop in abstractions. Feel free to modify and add any of these to your own projects.
 
-## Single-File Libraries
+## Modules
 
-| Library | Description |
+| Module | Description |
 | --- | --- |
-| **arena.c/h** | arena memory allocator |
-| **arr.c/h** | dynamic array |
-| **assert.h** | assert macro |
-| **log.h** | logging utility |
-| **pool.c/h** | pool memory allocator |
-| **timepx.h** | POSIX time wrapper |
-| **vec2d.c/h** | 2d vector interface |
-| **vstring.c/h** | string viewer |
+| **arena** | arena memory allocator |
+| **array** | dynamic array |
+| **assert** | custom assert macro |
+| **list** | doubly linked list |
+| **log** | logging utility |
+| **pool** | pool memory allocator |
+| **queue** | FIFO queue |
+| **stack** | LIFO stack |
+| **table** | hash table |
+| **timepx** | POSIX time wrapper |
+| **vec2d** | 2d vector interface |
+| **vstring** | string viewer |
 
 ## License
 
