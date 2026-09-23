@@ -21,6 +21,7 @@ void queue_free(Queue *q);
 bool queue_push(Queue *q, QValue value);
 bool queue_pop(Queue *q, QValue *value);
 
+#define QUEUE_IMPLEMENTATION
 #ifdef QUEUE_IMPLEMENTATION
 #ifndef QUEUE_IMPL_GAURD
 #define QUEUE_IMPL_GAURD
@@ -37,7 +38,7 @@ struct Queue {
 
 Queue *queue_init(void)
 {
-    Queue *q = malloc(sizeof(Queue));
+    Queue *q = (Queue *)malloc(sizeof(Queue));
     if (q == NULL) return NULL;
 
     q->capacity = 0;
@@ -58,7 +59,7 @@ void queue_free(Queue *q)
 
 static bool grow_queue(Queue *q, size_t capacity)
 {
-    QValue *new_buffer = malloc(sizeof(QValue) * capacity);
+    QValue *new_buffer = (QValue *)malloc(sizeof(QValue) * capacity);
     if (new_buffer == NULL) return false;
 
     size_t i = 0;
