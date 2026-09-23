@@ -54,8 +54,8 @@ bool table_erase(Table *table, const char *key);
 size_t table_count(Table *table);
 
 #ifdef TABLE_IMPLEMENTATION
-#ifndef TABLE_IMPLEMENTATION_GAURD
-#define TABLE_IMPLEMENTATION_GAURD
+#ifndef TABLE_IMPL_GAURD
+#define TABLE_IMPL_GAURD
 
 #include <stdlib.h>
 #include <string.h>
